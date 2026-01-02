@@ -1,0 +1,86 @@
+# kv_files/welllog_screen.kv
+<WellLogScreen>:
+    name: "welllog"
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: "10dp"
+        padding: "20dp"
+        md_bg_color: 0.96, 0.96, 0.96, 1
+
+        MDLabel:
+            text: "WellLog Insight"
+            halign: "center"
+            font_style: "H5"
+            theme_text_color: "Custom"
+            text_color: 0, 0, 0, 1
+            bold: True
+            on_touch_down: app.goto_start(*args)
+
+        MDRaisedButton:
+            text: "Upload from Device"
+            md_bg_color: 0.0, 0.48, 0.82, 1
+            pos_hint: {"center_x": 0.5}
+            size_hint_x: 0.8
+            on_release: app.open_file_manager()
+
+        MDLabel:
+            id: selected_file_label
+            text: "No file selected"
+            halign: "center"
+            theme_text_color: "Custom"
+            text_color: 0.3, 0.3, 0.3, 1
+
+        MDCard:
+            orientation: "vertical"
+            padding: "10dp"
+            size_hint_y: None
+            height: "120dp"
+            md_bg_color: 0.92, 0.92, 0.92, 1
+
+            MDLabel:
+                text: "Tips for Optimal Data Formats:"
+                theme_text_color: "Primary"
+                bold: True
+
+            MDLabel:
+                text: "• Ensure files are in LAS format"
+            MDLabel:
+                text: "• Include header for each data column"
+            MDLabel:
+                text: "• Verify data accuracy before upload"
+
+        MDTextField:
+            id: well_name
+            hint_text: "Well Name"
+            mode: "rectangle"
+
+        MDTextField:
+            id: location
+            hint_text: "Location"
+            mode: "rectangle"
+
+        MDTextField:
+            id: depth_range
+            hint_text: "Depth Range"
+            mode: "rectangle"
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: "50dp"
+            spacing: "10dp"
+
+            MDRaisedButton:
+                text: "View Log"
+                md_bg_color: 0.0, 0.48, 0.82, 1
+                on_release: app.view_log()
+
+            MDRaisedButton:
+                text: "Interpret Log"
+                md_bg_color: 0.0, 0.48, 0.82, 1
+                on_release: app.open_interpretation()
+
+            MDFlatButton:
+                text: "Reset"
+                text_color: 1, 0, 0, 1
+                on_release: app.reset_fields()

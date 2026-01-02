@@ -1,0 +1,59 @@
+<InterpretationScreen>:
+    name: "interpretation"
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: "30dp"
+        spacing: "25dp"
+
+        MDLabel:
+            text: "WellLog Insight"
+            halign: "center"
+            font_style: "H3"
+            bold: True
+            size_hint_y: None
+            height: "80dp"
+
+        Widget:
+            size_hint_y: None
+            height: "40dp"
+
+        MDRaisedButton:
+            text: "Vshale Interpretation"
+            md_bg_color: 0.0, 0.48, 0.82, 1
+            size_hint_x: 1
+            size_hint_y: None
+            height: "60dp"
+            on_release: app.open_vshale()
+
+        MDRaisedButton:
+            text: "Porosity Interpretation"
+            md_bg_color: 0.0, 0.48, 0.82, 1
+            size_hint_x: 1
+            size_hint_y: None
+            height: "60dp"
+            on_release: app.open_porosity()
+
+        MDRaisedButton:
+            text: "Water Saturation Interpretation"
+            md_bg_color: 0.0, 0.48, 0.82, 1
+            size_hint_x: 1
+            size_hint_y: None
+            height: "60dp"
+            on_release: app.change_screen("water_saturation")
+
+        MDRaisedButton:
+            text: "Full Log Interpretation"
+            md_bg_color: 0.0, 0.48, 0.82, 1
+            size_hint_x: 1
+            size_hint_y: None
+            height: "60dp"
+            on_release: app.open_reservoir()
+
+        Widget:
+
+        MDTextButton:
+            text: "Back"
+            halign: "center"
+            pos_hint: {"center_x": 0.5}
+            on_release: root.navigate_back()

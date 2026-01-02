@@ -1,0 +1,117 @@
+# kv_files/reservoir_screen.kv
+<ReservoirScreen>:
+    name: "reservoir"
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: "10dp"
+        padding: "20dp"
+        md_bg_color: 1, 1, 1, 1
+
+        MDLabel:
+            text: "Reservoir Identifier"
+            halign: "center"
+            font_style: "H5"
+            bold: True
+            size_hint_y: None
+            height: "40dp"
+
+        MDLabel:
+            id: reservoir_info_label
+            text: "Well Name:\nLocation:\nDepth Range:"
+            halign: "left"
+            theme_text_color: "Custom"
+            text_color: 0, 0, 0, 1
+            size_hint_y: None
+            height: "60dp"
+
+        MDCard:
+            orientation: "vertical"
+            padding: "15dp"
+            size_hint_y: None
+            height: "200dp"
+            md_bg_color: 0.96, 0.96, 0.96, 1
+
+            MDLabel:
+                text: "Petrophysical Parameters"
+                bold: True
+                size_hint_y: None
+                height: "30dp"
+            
+            MDBoxLayout:
+                orientation: "horizontal"
+                size_hint_y: None
+                height: "40dp"
+                spacing: "10dp"
+                
+                MDLabel:
+                    text: "Archie Parameters:"
+                    bold: True
+                    size_hint_x: 0.4
+                
+                MDTextField:
+                    id: m_value
+                    hint_text: "m (cementation)"
+                    text: "2.0"
+                    size_hint_x: 0.25
+                
+                MDTextField:
+                    id: n_value
+                    hint_text: "n (saturation)"
+                    text: "2.0"
+                    size_hint_x: 0.25
+                
+                MDRaisedButton:
+                    id: interpret_btn
+                    text: "Reinterpret"
+                    size_hint_x: 0.3
+                    md_bg_color: 0.0, 0.48, 0.82, 1
+                    on_release: app.reinterpret_reservoir()
+            
+            MDLabel:
+                text: "Detected Reservoir Intervals:"
+                bold: True
+                size_hint_y: None
+                height: "30dp"
+            
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                MDBoxLayout:
+                    id: reservoir_intervals_box
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: "4dp"
+
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            BoxLayout:
+                id: reservoir_box
+                orientation: "horizontal"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: "5dp"
+                canvas.before:
+                    Color:
+                        rgba: 0.95, 0.95, 0.95, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: "10dp"
+            size_hint_y: None
+            height: "50dp"
+
+            MDRaisedButton:
+                text: "Save as PDF"
+                md_bg_color: 0.0, 0.48, 0.82, 1
+                on_release: app.save_as_pdf()
+
+            MDFlatButton:
+                text: "Back"
+                text_color: 0, 0, 0, 1
+                on_release: app.change_screen("welllog")

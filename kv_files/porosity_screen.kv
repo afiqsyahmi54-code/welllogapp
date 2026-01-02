@@ -1,0 +1,52 @@
+<PorosityScreen>:
+    name: "Porosity"
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: "20dp"
+        spacing: "10dp"
+
+        MDLabel:
+            text: "WellLog Insight"
+            font_style: "H5"
+            bold: True
+            halign: "center"
+            size_hint_y: None
+            height: "40dp"
+
+        MDLabel:
+            text: "Porosity Interpretation"
+            font_style: "H6"
+            bold: True
+            size_hint_y: None
+            height: "30dp"
+
+        MDLabel:
+            id: info_label
+            text: "Well Name:\nLocation:\nDepth Range:"
+            size_hint_y: None
+            height: "70dp"
+
+        ScrollView:
+            do_scroll_y: True
+            BoxLayout:
+                id: box_area
+                orientation: "horizontal"
+                size_hint_y: None
+                height: self.minimum_height
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: "10dp"
+            size_hint_y: None
+            height: "50dp"
+
+            MDRaisedButton:
+                text: "Save as PDF"
+                md_bg_color: 0.0, 0.48, 0.82, 1
+                on_release: app.save_as_pdf()
+
+            MDFlatButton:
+                text: "Back"
+                pos_hint: {"center_x": 0.5}
+                on_release: root.navigate_back()
