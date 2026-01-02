@@ -53,10 +53,11 @@ jobs:
         run: |
           which aidl
           aidl --help
+          
       - name: Accept Android SDK licenses
         run: |
-          yes | $HOME/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager --licenses
-
+          yes | $HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses
+          
       - name: Build APK
         env:
           ANDROID_SDK_ROOT: ${{ env.HOME }}/android-sdk
