@@ -22,25 +22,16 @@ orientation = portrait
 android.api = 30
 android.minapi = 21
 android.build_tools_version = 30.0.3
-
 android.sdk_path = /home/runner/android-sdk
 
 # Architecture
 android.archs = armeabi-v7a, arm64-v8a
 
-# Permissions (add more later if needed)
+# Permissions
 android.permissions = INTERNET
 
-# Logcat for debugging
-android.logcat_filters = *:S python:D
-
-# Keep this empty – let Buildozer manage SDK/NDK
-android.sdk_path =
-android.ndk_path =
-android.ndk_version =
-
-# Private storage (safer for Android 11+)
+# Storage
 android.private_storage = True
 
-# Disable fullscreen (optional)
+# UI
 fullscreen = 0
