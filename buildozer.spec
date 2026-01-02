@@ -1,70 +1,44 @@
 [app]
 
-# (str) Title of your application
-title = WellLog Insight
-
-# (str) Package name
+# App info
+title = WellLogApp
 package.name = welllogapp
+package.domain = org.example
 
-# (str) Package domain (needed for android/ios packaging)
-package.domain = org.welllog
-
-# (source.dir) Source code directory where the main.py live
+# Source files
 source.dir = .
+source.include_exts = py,kv,png,jpg,ttf,csv
 
-# (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas,las
+# Version
+version = 0.1
 
-# (list) List of inclusions using pattern matching
-source.include_patterns = assets/*,data/*,utils/*,screens/*,kv_files/*
+# Requirements
+requirements = python3,kivy
 
-# (str) Application versioning
-version = 1.0.0
-
-# (list) Application requirements
-# comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy,kivymd,numpy,pandas,pillow
-
-# (str) Supported orientation (landscape, portrait or all)
+# Orientation
 orientation = portrait
 
-# (bool) Indicate if the application should be fullscreen or not
-fullscreen = 0
-
-# (string) Presplash background color (for new android toolchain)
-android.presplash_net_usage = Internet
-
-# (list) Permissions
-android.permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
-
-# (int) Target Android API, should be as high as possible.
-android.api = 31
-
-# (int) Minimum API your APK will support.
+# Android configuration (CRITICAL)
+android.api = 30
 android.minapi = 21
+android.build_tools_version = 30.0.3
 
-# (str) Android NDK version to use
-android.ndk = 25b
+# Architecture
+android.archs = armeabi-v7a, arm64-v8a
 
-# (bool) Use --private data storage (True) or --dir public storage (False)
-android.private_storage = True
+# Permissions (add more later if needed)
+android.permissions = INTERNET
 
-# (bool) Copy library instead of making a libpymodules.so
-android.copy_libs = 1
-
-# (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
-android.archs = arm64-v8a
-
-# (bool) Enable AndroidX support
-android.enable_androidx = True
-
-# (str) Android logcat filters to use
+# Logcat for debugging
 android.logcat_filters = *:S python:D
 
-[buildozer]
+# Keep this empty – let Buildozer manage SDK/NDK
+android.sdk_path =
+android.ndk_path =
+android.ndk_version =
 
-# (int) Log level (0 = error only, 1 = info, 2 = debug (with command output))
-log_level = 2
+# Private storage (safer for Android 11+)
+android.private_storage = True
 
-# (int) Display warning (and exit) if buildozer is run as root (0 = False, 1 = True)
-warn_on_root = 1
+# Disable fullscreen (optional)
+fullscreen = 0
