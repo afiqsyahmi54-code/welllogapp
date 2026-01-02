@@ -23,6 +23,8 @@ android.api = 30
 android.minapi = 21
 android.build_tools_version = 30.0.3
 
+android.sdk_path = /home/runner/android-sdk
+
 # Architecture
 android.archs = armeabi-v7a, arm64-v8a
 
