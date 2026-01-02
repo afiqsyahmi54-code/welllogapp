@@ -1,44 +1,40 @@
-[app]
+name: Build APK
 
-# App info
-title = WellLogApp
-package.name = welllogapp
-package.domain = org.example
+on:
+  push:
+    branches: [ main ]
 
-# Source files
-source.dir = .
-source.include_exts = py,kv,png,jpg,ttf,csv
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-# Version
-version = 0.1
+    steps:
+      - uses: actions/checkout@v4
 
-# Requirements
-requirements = python3,kivy
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
 
-# Orientation
-orientation = portrait
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-# Android configuration (CRITICAL)
-android.api = 30
-android.minapi = 21
-android.build_tools_version = 30.0.3
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install buildozer cython
 
-# Architecture
-android.archs = armeabi-v7a, arm64-v8a
+      - name: Build APK
+        env:
+          ANDROIDSDK_ACCEPT_LICENSE: "y"
+        run: |
+          buildozer android debug
 
-# Permissions (add more later if needed)
-android.permissions = INTERNET
-
-# Logcat for debugging
-android.logcat_filters = *:S python:D
-
-# Keep this empty – let Buildozer manage SDK/NDK
-android.sdk_path =
-android.ndk_path =
-android.ndk_version =
-
-# Private storage (safer for Android 11+)
-android.private_storage = True
-
-# Disable fullscreen (optional)
-fullscreen = 0
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk
+          path: bin/*.apk
