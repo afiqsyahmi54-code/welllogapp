@@ -52,7 +52,7 @@ jobs:
       - name: Verify AIDL
         run: |
           which aidl
-          aidl version
+          aidl --help
 
       - name: Build APK
         env:
