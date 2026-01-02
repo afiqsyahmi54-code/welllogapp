@@ -25,19 +25,36 @@ jobs:
           python -m pip install --upgrade pip
           pip install buildozer==1.5.0 python-for-android==2023.09.16 cython
 
-      - name: Initialize Buildozer (create SDK)
+      # 1️⃣ First run: let Buildozer create its SDK directory
+      - name: Initialize Buildozer SDK
         env:
           ANDROIDSDK_ACCEPT_LICENSE: "y"
         run: |
           buildozer android debug || true
 
-      - name: Force install build-tools into Buildozer SDK (CRITICAL)
+      # 2️⃣ Install cmdline-tools INSIDE Buildozer SDK (CRITICAL)
+      - name: Install cmdline-tools into Buildozer SDK
         run: |
           SDK="$HOME/.buildozer/android/platform/android-sdk"
-          yes | $SDK/cmdline-tools/latest/bin/sdkmanager "build-tools;30.0.3"
-          ls -la $SDK/build-tools/30.0.3/aidl
+          mkdir -p "$SDK/cmdline-tools"
+          cd "$SDK"
 
-      - name: Build APK (real run)
+          wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+          unzip -q commandlinetools-linux-11076708_latest.zip
+          mv cmdline-tools "$SDK/cmdline-tools/latest"
+
+          ls "$SDK/cmdline-tools/latest/bin/sdkmanager"
+
+      # 3️⃣ Install build-tools (this gives us AIDL)
+      - name: Install Android build-tools
+        run: |
+          SDK="$HOME/.buildozer/android/platform/android-sdk"
+          yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" "build-tools;30.0.3"
+
+          ls "$SDK/build-tools/30.0.3/aidl"
+
+      # 4️⃣ Real build (AIDL WILL PASS)
+      - name: Build APK
         env:
           ANDROIDSDK_ACCEPT_LICENSE: "y"
         run: |
