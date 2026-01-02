@@ -32,16 +32,20 @@ jobs:
         run: |
           buildozer android debug || true
 
-      # 2️⃣ Install cmdline-tools INSIDE Buildozer SDK (CRITICAL)
+      # 2️⃣ Install cmdline-tools INSIDE Buildozer SDK (FIXED)
       - name: Install cmdline-tools into Buildozer SDK
         run: |
           SDK="$HOME/.buildozer/android/platform/android-sdk"
-          mkdir -p "$SDK/cmdline-tools"
-          cd "$SDK"
+          TMP="$HOME/cmdline-tools-tmp"
+
+          mkdir -p "$TMP"
+          cd "$TMP"
 
           wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
           unzip -q commandlinetools-linux-11076708_latest.zip
-          mv cmdline-tools "$SDK/cmdline-tools/latest"
+
+          mkdir -p "$SDK/cmdline-tools/latest"
+          mv cmdline-tools/* "$SDK/cmdline-tools/latest/"
 
           ls "$SDK/cmdline-tools/latest/bin/sdkmanager"
 
@@ -53,7 +57,7 @@ jobs:
 
           ls "$SDK/build-tools/30.0.3/aidl"
 
-      # 4️⃣ Real build (AIDL WILL PASS)
+      # 4️⃣ Real build (AIDL SHOULD PASS)
       - name: Build APK
         env:
           ANDROIDSDK_ACCEPT_LICENSE: "y"
